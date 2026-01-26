@@ -1,0 +1,198 @@
+/* --- FULLSCREEN HERO --- */
+.banner-wrapper.fullscreen {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* opcional: gradient suavísimo */
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0.3)
+  );
+  position: relative;
+}
+
+/* Botón para bajar */
+.scroll-down-btn {
+  margin-top: 1.5rem;
+  background: var(--color-bg-translucent-light);
+  padding: 0.6rem 1rem;
+  border-radius: var(--border-radius-md);
+  border: none;
+  backdrop-filter: blur(var(--blur-intensity-md));
+  color: var(--color-text-light);
+  cursor: pointer;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-component-md);
+  transition: 0.2s ease;
+}
+
+.scroll-down-btn:hover {
+  transform: translateY(3px);
+  background: var(--color-bg-translucent-light);
+}
+
+/* --- FULLSCREEN MODE WITH IMAGE --- */
+.banner-wrapper.fullscreen {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Capa para oscurecer la imagen y mejorar contraste */
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.35); /* oscurece un poco */
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+/* Para que el contenido quede arriba de la imagen */
+.banner-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Botón pa abajo */
+.scroll-down-btn {
+  margin-top: 1.5rem;
+  background: var(--color-bg-translucent-light);
+  padding: 0.6rem 1rem;
+  border-radius: var(--border-radius-md);
+  border: none;
+  backdrop-filter: blur(var(--blur-intensity-md));
+  color: var(--color-text-light);
+  cursor: pointer;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-component-md);
+  transition: 0.2s ease;
+}
+
+.scroll-down-btn:hover {
+  transform: translateY(3px);
+}
+
+.banner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--gutter) * 2) var(--gutter);
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.banner-content {
+  max-width: var(--content-width);
+  width: 100%;
+  background: rgba(0, 0, 0, 0);
+  padding: calc(var(--gutter) * 2) 2.5rem;
+  border-radius: var(--border-radius-lg);
+  /*backdrop-filter: blur(var(--blur-intensity-md));*/
+  /*box-shadow: var(--shadow-component-lg);*/
+  box-sizing: border-box;
+}
+
+.banner h1 {
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  color: var(--color-text-light);
+  margin-bottom: var(--gutter);
+}
+
+.banner p {
+  font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .banner-content {
+    padding: 1.25rem;
+    border-radius: var(--border-radius-md);
+  }
+}
+
+.banner-wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: bannerFadeIn 0.9s ease-out forwards;
+}
+
+.banner-wrapper.fullscreen {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Parallax sencillo */
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  .banner-wrapper.fullscreen {
+    background-attachment: scroll;
+  }
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
+}
+
+.scroll-down-btn {
+  margin-top: 1.5rem;
+  background: var(--color-bg-translucent-light);
+  padding: 0.6rem 1rem;
+  border-radius: var(--border-radius-md);
+  border: none;
+  backdrop-filter: blur(var(--blur-intensity-md));
+  color: var(--color-text-light);
+  cursor: pointer;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-component-md);
+  transition: 0.2s ease;
+}
+
+.scroll-down-btn:hover {
+  transform: translateY(3px);
+}
+
+@keyframes bannerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

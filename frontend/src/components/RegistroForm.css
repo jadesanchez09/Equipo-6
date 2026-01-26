@@ -1,0 +1,81 @@
+.registro-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: calc(var(--gutter) * 2); /* 2rem a variable */
+}
+
+.registro-form-container form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: calc(var(--gutter) * 2); /* 2rem a variable */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 1.1rem;
+    color: var(--color-text-light); /* #EAEFEF a variable */
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: var(--gutter); /* 1rem a variable */
+    background: rgba(255, 255, 255, 0.1); /* Mantenido para diferenciarse del fondo principal */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius-sm); /* 4px a variable */
+    color: var(--color-text-light); /* #EAEFEF a variable */
+    text-align: left;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    width: 80%;
+    margin: var(--gutter) auto; /* 1rem a variable */
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    background-color: var(--color-bg-dark-base); /* #333446 a variable */
+    color: var(--color-text-light); /* #EAEFEF a variable */
+    border: none;
+    border-radius: var(--border-radius-sm); /* 4px a variable */
+    cursor: pointer;
+    transition: background-color var(--transition-default);
+}
+
+button[type="submit"]:hover {
+    background-color: #4a4b63; /* Color de hover específico mantenido */
+}
+
+.message {
+    margin-top: var(--gutter); /* 1rem a variable */
+    text-align: center;
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: var(--border-radius-sm); /* 4px a variable */
+}
+/* Colores de mensaje de error/éxito específicos mantenidos */
+.message.error {
+    background-color: rgba(255, 107, 107, 0.1);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+.message.success {
+    background-color: rgba(142, 224, 142, 0.1);
+    color: #8ee08e;
+    border: 1px solid rgba(142, 224, 142, 0.2);
+}

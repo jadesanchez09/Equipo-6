@@ -1,0 +1,111 @@
+.faq-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  color: var(--color-text-light);
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.faq-header h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+}
+
+.faq-header p {
+  font-size: 1.15rem;
+  opacity: 0.75;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter);
+}
+
+.faq-item {
+  background: var(--color-bg-translucent-light);
+  padding: 1.2rem;
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: var(--transition-default);
+  border: 1px solid transparent;
+  backdrop-filter: blur(var(--blur-intensity-md));
+}
+
+.faq-item:hover {
+  background: rgba(210, 193, 182, 0.18);
+  box-shadow: var(--shadow-component-md);
+}
+
+.faq-item.active {
+  border-color: var(--color-primary);
+  background: rgba(210, 193, 182, 0.22);
+  box-shadow: var(--shadow-component-lg);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-question h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+}
+
+.arrow {
+  transition: transform var(--transition-fast);
+  color: var(--color-primary);
+  font-size: 1.2rem;
+}
+
+.arrow.open {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-default);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+  margin-top: 0.8rem;
+}
+
+.faq-answer p {
+  margin: 0;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+.faq-footer {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.btn-support {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border-radius: var(--border-radius-md);
+  background: var(--color-primary);
+  color: var(--color-text-dark);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-component-md);
+}
+
+.btn-support:hover {
+  background: rgba(210, 193, 182, 0.8);
+  box-shadow: var(--shadow-component-lg);
+}

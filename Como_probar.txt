@@ -1,0 +1,9 @@
+para probar en consola ingresar lo siguiente:
+1- cd .\backend\
+ en cd backend: .\venv\Scripts\activate para activar el entorno virtual
+    una vez en la interfaz de el entorno virtual python: py app.py
+
+2- abrir nueva terminal
+    en nueva terminal y desde el directorio raiz: npm start
+
+3- en consola retorna la direccion correcta, aunque si algun print esta mal la correcta es http://localhost:5173/

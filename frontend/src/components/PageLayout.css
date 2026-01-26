@@ -1,0 +1,87 @@
+:root {
+  
+  /* Se utilizo la ayuda de una IA para normalizar todo el contenido y describir todo */
+  
+  /* Layout Variables (Existing) */
+  --content-width: 1100px;
+  --component-padding: 2rem;
+  --gutter: 1rem; /* 16px base spacing */
+
+  /* --- Design System Variables (New/Standardized) --- */
+  
+  /* Colors */
+  --color-text-light: #EAEFEF; /* Texto principal claro (casi blanco) */
+  --color-text-dark: #1B3C53;      /* Texto principal oscuro (para items internos) */
+  --color-primary: #D2C1B6;     /* Color de acento/interacción (hover, selected) */
+  --color-bg-dark-base: #456882; /* Color de fondo sólido oscuro */
+  --color-bg-translucent-light: rgba(210, 193, 182, 0.10); /* Base para componentes translúcidos */
+  --color-bg-card-hover: rgba(255, 255, 255, 0.9); /* Fondo de tarjeta claro (ej. ItemContainer) */
+
+  /* Borders & Effects */
+  --border-radius-lg: 12px;
+  --border-radius-md: 8px;
+  --border-radius-sm: 4px;
+  --blur-intensity-md: 6px;
+  --blur-intensity-lg: 10px;
+
+  /* Shadows */
+  --shadow-component-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+  --shadow-component-md: 0 6px 15px rgba(0, 0, 0, 0.1);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-default: 0.3s ease;
+}
+
+.component-container {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.component-content {
+  width: 100%;
+  max-width: var(--content-width);
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  box-sizing: border-box;
+}
+
+.component-pad {
+  padding: var(--component-padding) 0;
+}
+
+.page-layout {
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: transparent;
+  position: relative;
+}
+
+.page-content {
+  padding-top: calc(2rem + 80px); /* Manteniendo el valor original para el espaciado de la navegación */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.page-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: calc(var(--gutter) * 2); /* 2rem se convierte en variable */
+  padding-bottom: 4rem;
+}
+
+.page-content.no-top-padding{
+  padding: 0;
+}

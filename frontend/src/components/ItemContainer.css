@@ -1,0 +1,85 @@
+.clickable-item {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  border-radius: var(--border-radius-md); /* 8px a variable */
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.clickable-item:hover .item-background {
+  filter: brightness(0.5);
+}
+
+.clickable-item:hover .item-card{
+  transform: translateY(-3px);
+}
+
+.item-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--component-padding); /* tuve q poner esto para el padding global */
+  background: var(--color-bg-translucent-light);
+  border-radius: var(--border-radius-lg);
+  backdrop-filter: blur(var(--blur-intensity-md));
+  box-shadow: var(--shadow-component-lg);
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.item-container-header {
+  width: 100%;
+  margin-bottom: calc(var(--gutter) * 1.5); /* 1.5rem a variable */
+}
+
+.item-container-header h2 {
+  font-size: 1.8rem;
+  color: var(--color-text-light); /* #EAEFEF a variable */
+  margin: 0;
+}
+
+.item-container-grid {
+  padding: 0rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem; /* Este valor de 'gap' es específico, lo mantengo pero podría ser una variable de espaciado 'xxl' */
+  width: 90%;
+}
+
+.item-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.7);
+  z-index: 1;
+}
+
+.item-card {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: var(--color-bg-card-hover); /* Fondo blanco translúcido a variable */
+  padding: 0.5rem var(--gutter); /* 1rem a variable */
+  border-radius: var(--border-radius-md); /* 8px a variable */
+  z-index: 2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra específica mantenida */
+}
+
+.item-link {
+  text-decoration: none;
+  color: var(--color-text-dark); /* #333 a variable */
+  font-size: var(--gutter); /* 1rem a variable */
+  font-weight: bold;
+}
+
+.item-link:hover {
+  color: #007BFF; /* Mantenido como color de enlace específico, podría ser --color-accent-link */
+}

@@ -1,0 +1,101 @@
+.scroll-list-container {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.scroll-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: var(--gutter); /* 16px a variable */
+}
+
+.scroll-list::-webkit-scrollbar {
+  width: var(--border-radius-md); /* 8px a variable de radio de borde */
+}
+
+.scroll-list::-webkit-scrollbar-track {
+  background: var(--color-bg-dark-base); /* #333446 a variable */
+}
+
+.scroll-list::-webkit-scrollbar-thumb {
+  background: var(--color-bg-dark-base); /* #333446 a variable */
+  border-radius: var(--border-radius-sm); /* 4px a variable */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--gutter); /* 1rem a variable */
+  border: 1px solid #ddd; /* Color de borde específico mantenido */
+  border-radius: var(--border-radius-md); /* 8px a variable */
+  background-color: #fff; /* Color de fondo específico mantenido */
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+}
+
+.item-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.item-description {
+  font-size: 0.9rem;
+  color: #666; /* Color específico mantenido */
+}
+
+.item.selected {
+  background-color: var(--color-primary); /* #7F8CAA a variable */
+}
+
+.item-text {
+  color: var(--color-text-light); /* white a variable */
+  margin: 0;
+}
+
+.top-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  /* El color #060010 parece ser el fondo del cuerpo, lo mantengo ya que no tenemos una variable para el BG de la página */
+  background: linear-gradient(to bottom, #060010, transparent);
+  pointer-events: none;
+  transition: opacity var(--transition-default);
+}
+
+.bottom-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to top, #060010, transparent);
+  pointer-events: none;
+  transition: opacity var(--transition-default);
+}
