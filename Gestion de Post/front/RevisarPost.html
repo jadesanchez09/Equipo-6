@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Revisión de Posts</title>
+</head>
+<body>
+
+<h1>Panel de Revisión</h1>
+
+<button onclick="cargarPosts()">Cargar Posts</button>
+
+<ul id="lista"></ul>
+
+<script>
+
+    const URL = "http://localhost:8080/post/pendientes";
+
+    function cargarPosts(){
+        fetch(URL)
+            .then(response => response.json())
+            .then(data => {
+                const lista = document.getElementById("lista");
+                lista.innerHTML = "";
+
+                data.forEach(post => {
+
+                    const li = document.createElement("li");
+
+                    li.innerHTML = `
+                        <b>${post.titulo}</b><br>
+                        ${post.contenido}<br><br>
+
+                        <textarea id="obs-${post.id}" placeholder="Observaciones"></textarea><br><br>
+
+                        <button onclick="aprobar(${post.id})"> Aprobar</button>
+                        <button onclick="rechazar(${post.id})"> Rechazar</button>
+
+                        <hr>
+                    `;
+
+                    lista.appendChild(li);
+                });
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+    // Aprobar
+    function aprobar(id){
+        const obs = document.getElementById("obs-" + id).value;
+
+        fetch(`http://localhost:8080/post/${id}/revisar?adminId=1&observacion=${encodeURIComponent(obs)}&aprobado=true`, {
+            method: "PUT"
+        })
+            .then(() => {
+                alert("Post aprobado");
+                cargarPosts();
+            })
+            .catch(error => console.error(error));
+    }
+
+    // Rechazar
+    function rechazar(id){
+        const obs = document.getElementById("obs-" + id).value;
+
+        fetch(`http://localhost:8080/post/${id}/revisar?adminId=1&observacion=${encodeURIComponent(obs)}&aprobado=false`, {
+            method: "PUT"
+        })
+            .then(() => {
+                alert("Post rechazado");
+                cargarPosts();
+            })
+            .catch(error => console.error(error));
+    }
+
+    // 🔄 Auto cargar
+    cargarPosts();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Post</title>
+</head>
+<body>
+
+<h1>Crear Nuevo Post</h1>
+
+<label>ID Post:</label><br>
+<input type="number" id="postId"><br><br>
+
+<label>Título:</label><br>
+<input type="text" id="titulo"><br><br>
+
+<label>Contenido:</label><br>
+<textarea id="contenido"></textarea><br><br>
+
+<label>ID Usuario:</label><br>
+<input type="number" id="usuario"><br><br>
+
+<button onclick="crearPost()">Crear Post</button>
+
+<p id="mensaje"></p>
+
+<hr>
+
+<h2>Mis Posts</h2>
+
+<button onclick="cargarMisPosts()">Cargar Mis Posts</button>
+
+<h3>Pendientes</h3>
+<ul id="pendientes"></ul>
+
+<h3>Aprobados</h3>
+<ul id="aprobados"></ul>
+
+<h3>Rechazados</h3>
+<ul id="rechazados"></ul>
+
+<script>
+
+    const URL = "http://localhost:8080/post";
+
+    // CREAR POST
+    function crearPost(){
+
+        const titulo = document.getElementById("titulo").value;
+        const contenido = document.getElementById("contenido").value;
+        const usuario = document.getElementById("usuario").value;
+        const postId = document.getElementById("postId").value;
+
+        let bodyData = {
+            titulo: titulo,
+            contenido: contenido,
+            usuarioId: usuario
+        };
+
+        if(postId){
+            bodyData.id = postId;
+        }
+
+        fetch(URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(bodyData)
+        })
+    }
+
+    function limpiarCampos(){
+        document.getElementById("titulo").value = "";
+        document.getElementById("contenido").value = "";
+    }
+
+    // ELIMINAR POST
+    function eliminarPost(id){
+
+        if(!confirm("¿Seguro que quieres eliminar este post?")) return;
+
+        fetch(`http://localhost:8080/post/${id}`, {
+            method: "DELETE"
+        })
+            .then(() => {
+                alert("Post eliminado");
+                cargarMisPosts();
+            })
+            .catch(error => console.error(error));
+    }
+
+    // CARGAR POSTS DEL USUARIO
+    function cargarMisPosts(){
+
+        const usuario = document.getElementById("usuario").value;
+
+        fetch(`http://localhost:8080/post/usuario/${usuario}`)
+            .then(res => res.json())
+            .then(data => {
+
+                document.getElementById("pendientes").innerHTML = "";
+                document.getElementById("aprobados").innerHTML = "";
+                document.getElementById("rechazados").innerHTML = "";
+
+                data.forEach(post => {
+
+                    const li = document.createElement("li");
+
+
+                    let contenidoHTML = `
+                    <b>${post.titulo}</b><br>
+                    ${post.contenido}
+                `;
+
+
+                    if(post.estado === "RECHAZADO"){
+                        contenidoHTML += `
+                        <br><br>
+                        <button onclick="eliminarPost(${post.id})">🗑Eliminar</button>
+                    `;
+                    }
+
+                    li.innerHTML = contenidoHTML;
+
+                    if(post.estado === "PENDIENTE"){
+                        document.getElementById("pendientes").appendChild(li);
+                    }
+                    else if(post.estado === "APROBADO"){
+                        document.getElementById("aprobados").appendChild(li);
+                    }
+                    else if(post.estado === "RECHAZADO"){
+                        document.getElementById("rechazados").appendChild(li);
+                    }
+
+                });
+            })
+            .catch(error => console.error(error));
+    }
+
+</script>
+
+</body>
+</html>
