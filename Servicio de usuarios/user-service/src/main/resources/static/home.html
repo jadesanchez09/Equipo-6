@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenida</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 420px;
+            max-width: 92%;
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 14px;
+            font-size: 34px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #374151;
+            margin-bottom: 28px;
+        }
+
+        button {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 10px;
+            background: #2f5bdb;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2449b8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>Hola, bienvenido!! <3 </h1>
+    <p id="welcomeText"></p>
+    <button onclick="logout()">Cerrar sesión</button>
+</div>
+
+<script>
+    const token = localStorage.getItem("token");
+    const username = localStorage.getItem("username");
+
+    if (!token) {
+        window.location.href = "/index.html";
+    } else {
+        document.getElementById("welcomeText").textContent =
+            "Ingresaste correctamente como: " + username;
+    }
+
+    function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        window.location.href = "/index.html";
+    }
+</script>
+
+</body>
+</html>
