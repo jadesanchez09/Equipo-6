@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso - User Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 420px;
+            max-width: 92%;
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 22px;
+            font-size: 36px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #e5e7eb;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .tab-btn.active {
+            background: #2f5bdb;
+            color: white;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .main-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: #2f5bdb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .main-btn:hover {
+            background: #2449b8;
+        }
+
+        .msg {
+            text-align: center;
+            margin-top: 16px;
+            min-height: 20px;
+            font-size: 15px;
+        }
+
+        .ok {
+            color: #15803d;
+        }
+
+        .error {
+            color: #dc2626;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2 id="titulo">Iniciar sesión</h2>
+
+    <div class="tabs">
+        <button class="tab-btn active" id="loginTab" onclick="showLogin()">Iniciar sesión</button>
+        <button class="tab-btn" id="registerTab" onclick="showRegister()">Crear cuenta</button>
+    </div>
+
+    <div id="loginForm">
+        <input type="text" id="loginUser" placeholder="Correo o username">
+        <input type="password" id="loginPassword" placeholder="Contraseña">
+        <button class="main-btn" onclick="loginUser()">Entrar</button>
+        <div id="loginMsg" class="msg"></div>
+    </div>
+
+    <div id="registerForm" class="hidden">
+        <input type="text" id="registerUsername" placeholder="Username">
+        <input type="email" id="registerEmail" placeholder="Correo">
+        <input type="password" id="registerPassword" placeholder="Contraseña">
+        <button class="main-btn" onclick="registerUser()">Crear cuenta</button>
+        <div id="registerMsg" class="msg"></div>
+    </div>
+</div>
+
+<script>
+    function showLogin() {
+        document.getElementById("titulo").textContent = "Iniciar sesión";
+        document.getElementById("loginForm").classList.remove("hidden");
+        document.getElementById("registerForm").classList.add("hidden");
+        document.getElementById("loginTab").classList.add("active");
+        document.getElementById("registerTab").classList.remove("active");
+    }
+
+    function showRegister() {
+        document.getElementById("titulo").textContent = "Crear cuenta";
+        document.getElementById("registerForm").classList.remove("hidden");
+        document.getElementById("loginForm").classList.add("hidden");
+        document.getElementById("registerTab").classList.add("active");
+        document.getElementById("loginTab").classList.remove("active");
+    }
+
+    async function registerUser() {
+        const username = document.getElementById("registerUsername").value.trim();
+        const email = document.getElementById("registerEmail").value.trim();
+        const password = document.getElementById("registerPassword").value.trim();
+        const msg = document.getElementById("registerMsg");
+
+        msg.textContent = "";
+        msg.className = "msg";
+
+        try {
+            const response = await fetch("/api/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password
+                })
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(errorText || "No se pudo crear la cuenta");
+            }
+
+            const data = await response.json();
+
+            msg.textContent = "Cuenta creada con éxito";
+            msg.classList.add("ok");
+
+            document.getElementById("loginUser").value = data.email;
+
+            setTimeout(() => {
+                showLogin();
+            }, 900);
+
+        } catch (error) {
+            msg.textContent = "Error al crear cuenta";
+            msg.classList.add("error");
+        }
+    }
+
+    async function loginUser() {
+        const usernameOrEmail = document.getElementById("loginUser").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
+        const msg = document.getElementById("loginMsg");
+
+        msg.textContent = "";
+        msg.className = "msg";
+
+        try {
+            const response = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    usernameOrEmail: usernameOrEmail,
+                    password: password
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("Correo/username o contraseña incorrectos");
+            }
+
+            const data = await response.json();
+
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("username", data.username);
+
+            msg.textContent = "Ingresaste con éxito";
+            msg.classList.add("ok");
+
+            setTimeout(() => {
+                window.location.href = "/home.html";
+            }, 700);
+
+        } catch (error) {
+            msg.textContent = error.message;
+            msg.classList.add("error");
+        }
+    }
+</script>
+
+</body>
+</html>
