@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Feed Público</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <h2>Feed Público</h2>
+
+    <button class="new-post-btn" onclick="abrirModal()">Nuevo Post</button>
+
+</header>
+
+<main>
+
+    <div id="feed" class="feed"></div>
+
+</main>
+
+<div id="modal" class="modal">
+
+    <div class="modal-content">
+
+        <h3>Nueva publicación</h3>
+
+        <textarea id="texto" placeholder="Escribe algo..."></textarea>
+        <input type="file" id="imagen">
+
+        <div class="modal-buttons">
+
+            <button onclick="publicar()">Publicar</button>
+
+            <button onclick="cerrarModal()">Cancelar</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="imageViewer" class="image-viewer">
+    <span class="cerrar-visior" onclick="cerrarImagen()">✕</span>
+    <img id="imagenGrande" class="imagen-grande">
+</div>
+
+
+<script src="/js/feed.js"></script>
+
+</body>
+
+</html>
