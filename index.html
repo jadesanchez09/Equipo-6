@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanti - Acceso</title>
+    <style>
+        * {
+          box-sizing: border-box;
+          font-family: Arial, sans-serif;
+        }
+
+        body {
+          margin: 0;
+          min-height: 100vh;
+          background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+          color: white;
+        }
+
+        header {
+          width: 100%;
+          padding: 20px 40px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background: rgba(255,255,255,0.08);
+          backdrop-filter: blur(10px);
+          position: sticky;
+          top: 0;
+        }
+
+        .logo {
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .logo span {
+          color: #7dd3fc;
+        }
+
+        nav {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+        }
+
+        nav a {
+          text-decoration: none;
+          color: white;
+          background: rgba(255,255,255,0.12);
+          padding: 10px 16px;
+          border-radius: 10px;
+          transition: 0.2s;
+          font-size: 14px;
+        }
+
+        nav a:hover {
+          background: rgba(125, 211, 252, 0.35);
+        }
+
+        .wrapper {
+          min-height: calc(100vh - 90px);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 30px 20px;
+        }
+
+        .card {
+          width: 100%;
+          max-width: 460px;
+          background: rgba(255,255,255,0.08);
+          border-radius: 18px;
+          padding: 30px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+          backdrop-filter: blur(8px);
+        }
+
+        h1 {
+          text-align: center;
+          margin-top: 0;
+          margin-bottom: 22px;
+          color: #7dd3fc;
+        }
+
+        .tabs {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 22px;
+        }
+
+        .tab-btn {
+          flex: 1;
+          padding: 12px;
+          border: none;
+          border-radius: 10px;
+          background: rgba(255,255,255,0.12);
+          color: white;
+          cursor: pointer;
+          font-size: 15px;
+          font-weight: bold;
+        }
+
+        .tab-btn.active {
+          background: #2563eb;
+        }
+
+        input {
+          width: 100%;
+          padding: 13px;
+          margin-bottom: 14px;
+          border: 1px solid rgba(255,255,255,0.18);
+          border-radius: 10px;
+          background: rgba(255,255,255,0.08);
+          color: white;
+          font-size: 14px;
+        }
+
+        input::placeholder {
+          color: rgba(255,255,255,0.7);
+        }
+
+        .main-btn {
+          width: 100%;
+          padding: 13px;
+          border: none;
+          border-radius: 10px;
+          background: #2563eb;
+          color: white;
+          font-size: 16px;
+          cursor: pointer;
+        }
+
+        .main-btn:hover {
+          background: #1d4ed8;
+        }
+
+        .msg {
+          text-align: center;
+          margin-top: 16px;
+          min-height: 20px;
+          font-size: 15px;
+        }
+
+        .ok {
+          color: #86efac;
+        }
+
+        .error {
+          color: #fca5a5;
+        }
+
+        .hidden {
+          display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Atlanti <span>Team</span></div>
+    <nav>
+        <a href="home.html">Inicio</a>
+        <a href="publicaciones.html">Publicaciones</a>
+        <a href="moderacion.html">Moderación</a>
+        <a href="gestion-posts.html">Gestión de Posts</a>
+    </nav>
+</header>
+
+<div class="wrapper">
+    <div class="card">
+        <h1 id="titulo">Iniciar sesión</h1>
+
+        <div class="tabs">
+            <button class="tab-btn active" id="loginTab" onclick="showLogin()">Iniciar sesión</button>
+            <button class="tab-btn" id="registerTab" onclick="showRegister()">Crear cuenta</button>
+        </div>
+
+        <div id="loginForm">
+            <input type="text" id="loginUser" placeholder="Correo o username">
+            <input type="password" id="loginPassword" placeholder="Contraseña">
+            <button class="main-btn" onclick="loginUser()">Entrar</button>
+            <div id="loginMsg" class="msg"></div>
+        </div>
+
+        <div id="registerForm" class="hidden">
+            <input type="text" id="registerUsername" placeholder="Username">
+            <input type="email" id="registerEmail" placeholder="Correo">
+            <input type="password" id="registerPassword" placeholder="Contraseña">
+            <button class="main-btn" onclick="registerUser()">Crear cuenta</button>
+            <div id="registerMsg" class="msg"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_BASE = "http://localhost:8080";
+
+    function showLogin() {
+      document.getElementById("titulo").textContent = "Iniciar sesión";
+      document.getElementById("loginForm").classList.remove("hidden");
+      document.getElementById("registerForm").classList.add("hidden");
+      document.getElementById("loginTab").classList.add("active");
+      document.getElementById("registerTab").classList.remove("active");
+    }
+
+    function showRegister() {
+      document.getElementById("titulo").textContent = "Crear cuenta";
+      document.getElementById("registerForm").classList.remove("hidden");
+      document.getElementById("loginForm").classList.add("hidden");
+      document.getElementById("registerTab").classList.add("active");
+      document.getElementById("loginTab").classList.remove("active");
+    }
+
+    async function registerUser() {
+      const username = document.getElementById("registerUsername").value.trim();
+      const email = document.getElementById("registerEmail").value.trim();
+      const password = document.getElementById("registerPassword").value.trim();
+      const msg = document.getElementById("registerMsg");
+
+      msg.textContent = "";
+      msg.className = "msg";
+
+      try {
+        const response = await fetch(`${API_BASE}/api/users`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            username: username,
+            email: email,
+            password: password
+          })
+        });
+
+        let data = {};
+        try {
+          data = await response.json();
+        } catch (_) {}
+
+        if (!response.ok) {
+          throw new Error(data.message || "No se pudo crear la cuenta");
+        }
+
+        msg.textContent = "Cuenta creada con éxito";
+        msg.classList.add("ok");
+
+        document.getElementById("loginUser").value = email;
+        document.getElementById("loginPassword").value = password;
+
+        setTimeout(() => {
+          showLogin();
+        }, 900);
+
+      } catch (error) {
+        msg.textContent = error.message || "Error al crear cuenta";
+        msg.classList.add("error");
+      }
+    }
+
+    async function loginUser() {
+      const usernameOrEmail = document.getElementById("loginUser").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+      const msg = document.getElementById("loginMsg");
+
+      msg.textContent = "";
+      msg.className = "msg";
+
+      try {
+        const response = await fetch(`${API_BASE}/api/auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            usernameOrEmail: usernameOrEmail,
+            password: password
+          })
+        });
+
+        let data = {};
+        try {
+          data = await response.json();
+        } catch (_) {}
+
+        if (!response.ok) {
+          throw new Error(data.message || "Correo/username o contraseña incorrectos");
+        }
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("username", data.username);
+
+        msg.textContent = "Ingresaste con éxito";
+        msg.classList.add("ok");
+
+        setTimeout(() => {
+          window.location.href = "home.html";
+        }, 700);
+
+      } catch (error) {
+        msg.textContent = error.message || "Error al iniciar sesión";
+        msg.classList.add("error");
+      }
+    }
+</script>
+
+</body>
+</html>

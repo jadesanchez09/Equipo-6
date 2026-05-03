@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlanti - Moderación</title>
+    <style>
+        * {
+          box-sizing: border-box;
+          font-family: Arial, sans-serif;
+        }
+
+        body {
+          margin: 0;
+          min-height: 100vh;
+          background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+          color: white;
+        }
+
+        header {
+          width: 100%;
+          padding: 20px 40px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background: rgba(255,255,255,0.08);
+          backdrop-filter: blur(10px);
+          position: sticky;
+          top: 0;
+        }
+
+        .logo {
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .logo span {
+          color: #7dd3fc;
+        }
+
+        nav {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+        }
+
+        nav a {
+          text-decoration: none;
+          color: white;
+          background: rgba(255,255,255,0.12);
+          padding: 10px 16px;
+          border-radius: 10px;
+          transition: 0.2s;
+          font-size: 14px;
+        }
+
+        nav a:hover {
+          background: rgba(125, 211, 252, 0.35);
+        }
+
+        .container {
+          max-width: 1100px;
+          margin: 40px auto;
+          padding: 20px;
+        }
+
+        .title-box {
+          background: rgba(255,255,255,0.08);
+          border-radius: 18px;
+          padding: 24px;
+          margin-bottom: 25px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        }
+
+        .title-box h1 {
+          margin: 0 0 10px 0;
+          color: #7dd3fc;
+        }
+
+        .title-box p {
+          margin: 0;
+          opacity: 0.9;
+          line-height: 1.5;
+        }
+
+        .panel {
+          display: grid;
+          gap: 20px;
+        }
+
+        .panel-card {
+          background: rgba(255,255,255,0.08);
+          border-radius: 18px;
+          padding: 22px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        }
+
+        .panel-card h2 {
+          margin-top: 0;
+          color: #7dd3fc;
+          font-size: 20px;
+        }
+
+        .panel-card p {
+          line-height: 1.5;
+          opacity: 0.93;
+        }
+
+        .actions {
+          margin-top: 15px;
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+        }
+
+        .btn {
+          border: none;
+          padding: 10px 16px;
+          border-radius: 10px;
+          cursor: pointer;
+          font-size: 14px;
+          color: white;
+        }
+
+        .btn.approve {
+          background: #16a34a;
+        }
+
+        .btn.reject {
+          background: #dc2626;
+        }
+
+        .btn:hover {
+          opacity: 0.9;
+        }
+
+        footer {
+          text-align: center;
+          padding: 20px;
+          background: rgba(255,255,255,0.06);
+          font-size: 14px;
+          opacity: 0.9;
+          margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Atlanti <span>Team</span></div>
+    <nav>
+        <a href="home.html">Inicio</a>
+        <a href="index.html">Login / Registro</a>
+        <a href="publicaciones.html">Publicaciones</a>
+        <a href="gestion-posts.html">Gestión de Posts</a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="title-box">
+        <h1>Moderación</h1>
+        <p>Sección base para integrar el microservicio de moderación de Abraham. Aquí después se revisarán publicaciones reportadas o pendientes.</p>
+    </div>
+
+    <div class="panel">
+        <div class="panel-card">
+            <h2>Contenido pendiente 1</h2>
+            <p>Ejemplo visual de una publicación pendiente de moderación. Más adelante esta sección se conectará al backend real.</p>
+            <div class="actions">
+                <button class="btn approve" type="button">Aprobar</button>
+                <button class="btn reject" type="button">Rechazar</button>
+            </div>
+        </div>
+
+        <div class="panel-card">
+            <h2>Contenido pendiente 2</h2>
+            <p>Esta plantilla ayuda a que el equipo tenga una estructura visual unificada mientras cada integrante conecta su microservicio.</p>
+            <div class="actions">
+                <button class="btn approve" type="button">Aprobar</button>
+                <button class="btn reject" type="button">Rechazar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    Atlanti Team · Sección de moderación
+</footer>
+
+</body>
+</html>
